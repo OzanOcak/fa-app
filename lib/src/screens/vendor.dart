@@ -14,8 +14,6 @@ import 'dart:io';
 import 'package:provider/provider.dart';
 
 class Vendor extends StatefulWidget {
-  StreamSubscription _userSubscription;
-
   @override
   _VendorState createState() => _VendorState();
 
@@ -34,11 +32,13 @@ class Vendor extends StatefulWidget {
 }
 
 class _VendorState extends State<Vendor> {
+  StreamSubscription _userSubscription;
+
   @override
   void initState() {
     Future.delayed(Duration.zero, () {
       var authBloc = Provider.of<AuthBloc>(context, listen: false);
-      widget._userSubscription = authBloc.user.listen((user) {
+      _userSubscription = authBloc.user.listen((user) {
         if (user == null)
           Navigator.of(context)
               .pushNamedAndRemoveUntil('/login', (route) => false);
@@ -50,7 +50,7 @@ class _VendorState extends State<Vendor> {
 
   @override
   void dispose() {
-    widget._userSubscription.cancel();
+    _userSubscription.cancel();
     super.dispose();
   }
 
@@ -61,7 +61,7 @@ class _VendorState extends State<Vendor> {
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
-              AppNavbar.cupertinoNavBar(title: 'Vendor Name'),
+              AppNavbar.cupertinoNavBar(title: 'Vendor Name', context: context),
             ];
           },
           body: VendorScaffold.cupertinoTabScaffold,
