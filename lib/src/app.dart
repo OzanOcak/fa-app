@@ -35,7 +35,7 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     authBloc.dispose();
-    productBloc.displose();
+    productBloc.dispose();
     super.dispose();
   }
 }
@@ -49,7 +49,9 @@ class PlatformApp extends StatelessWidget {
       return CupertinoApp(
           home: (isLoggedIn == null)
               ? loadingScreen(true)
-              : (isLoggedIn == true) ? Landing() : Login(),
+              : (isLoggedIn == true)
+                  ? Landing()
+                  : Login(),
           onGenerateRoute: Routes.cupertinoRoutes,
           theme: CupertinoThemeData(
               primaryColor: AppColors.straw,
@@ -60,7 +62,9 @@ class PlatformApp extends StatelessWidget {
       return MaterialApp(
           home: (isLoggedIn == null)
               ? loadingScreen(false)
-              : (isLoggedIn == true) ? Landing() : Login(),
+              : (isLoggedIn == true)
+                  ? Landing()
+                  : Login(),
           onGenerateRoute: Routes.materialRoutes,
           theme: ThemeData(scaffoldBackgroundColor: Colors.white));
     }
